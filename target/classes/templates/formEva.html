@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestor Proyectos - Formulario de Proyecto</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous"
+    />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #132F20; /* Verde profundo institucional */
+            color: #ffffff;
+            justify-content: center;
+            position: relative;
+        }
+
+        .navbar-brand {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+        }
+
+        .navbar-brand img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .navbar-brand span {
+            margin-left: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .content-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #132F20; /* Verde profundo institucional */
+            padding: 20px;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .sidebar img {
+            width: 180px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar a {
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .sidebar a:hover {
+            background-color: #6D100A; /* Rojo institucional */
+        }
+
+        .form-container {
+            flex-grow: 1;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #132F20; /* Verde profundo institucional */
+            text-align: center;
+        }
+
+        .form-label {
+            font-size: 16px;
+            color: #132F20;
+        }
+
+        .form-control,
+        .form-select {
+            border: 1px solid #132F20;
+            color: #132F20;
+        }
+
+        .btn-primary {
+            background-color: #6D100A; /* Rojo institucional */
+            border-color: #6D100A;
+        }
+
+        .btn-primary:hover {
+            background-color: #C22D20;
+            border-color: #C22D20;
+        }
+
+        footer {
+            background-color: #132F20;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../img/logo1.png" alt="Logo UTS">
+                <span>PROYECTOS UTS</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#" style="color: #ffffff;">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color: #ffffff;">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="/" style="color: #ffffff;">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <img src="../img/escudo.png" alt="Escudo">
+            <a href="#">Consultar Proyectos</a>
+            <a href="#">Gestionar Evaluadores</a>
+            <a href="#">Crear Nuevos Proyectos</a>
+        </div>
+
+        <!-- Formulario -->
+        <div class="form-container">
+            <form th:object="${proy}" th:action="@{/guardarProy}" method="post">
+                <h1>Formulario de Proyecto</h1>
+                <input type="hidden" class="form-control" th:field="*{id}">
+
+                <div class="mb-3">
+                    <label for="anteproyecto" class="form-label">Nombre AnteProyecto</label>
+                    <input type="text" class="form-control" id="anteproyecto" th:field="*{anteproyecto}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="estadoDirector" class="form-label">Estado Director</label>
+                    <input type="text" class="form-control" id="estadoDirector" th:field="*{estadoDirector}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="radicadoAnteproyecto" class="form-label">Radicado AnteProyecto</label>
+                    <input type="text" class="form-control" id="radicadoAnteproyecto" th:field="*{radicadoAnteproyecto}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="estadoEvaluador" class="form-label">Estado Evaluador</label>
+                    <input type="text" class="form-control" id="estadoEvaluador" th:field="*{estadoEvaluador}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="estadoFinal" class="form-label">Estado Final</label>
+                    <input type="text" class="form-control" id="estadoFinal" th:field="*{estadoFinal}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="radicadoComite" class="form-label">Radicado Comité</label>
+                    <input type="text" class="form-control" id="radicadoComite" th:field="*{radicadoComite}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="director" class="form-label">Director</label>
+                    <select id="director" class="form-select" th:field="*{director}">
+                        <option th:each="dir : ${listaDir}" th:value="${dir.id}" th:text="${dir.nombre}">Director</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="evaluadores" class="form-label">Evaluadores</label>
+                    <select id="evaluadores" class="form-select" th:field="*{evaluadores}" multiple>
+                        <option th:each="eva : ${listaEva}" th:value="${eva.id}" th:text="${eva.nombre}">Evaluador</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="estudiantes" class="form-label">Estudiantes</label>
+                    <select id="estudiantes" class="form-select" th:field="*{estudiantes}" multiple>
+                        <option th:each="est : ${listaEst}" th:value="${est.id}" th:text="${est.nombre}">Estudiante</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Unidades Tecnológicas de Santander. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO4hD8+v8+6fONgGb1+6O5BqlFL99Lz0Z0bO1nRoh9i9w0PohOvE0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-7kc8Kw1k4xOsh2pNIeOaE+l8RtQiw7Z7tjzD2JuzZl2LxM1rKtZrB4QocTOUlZg6C" crossorigin="anonymous"></script>
+</body>
+
+</html>

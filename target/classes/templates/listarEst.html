@@ -1,0 +1,164 @@
+<!-- listarEst.html -->
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lista de Estudiantes - Proyectos UTS</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous"
+    />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #6D100A; /* Rojo oscuro institucional */
+        }
+        .navbar-brand img {
+            height: 50px;
+        }
+        .navbar .nav-link {
+            color: #ffffff !important;
+        }
+        .navbar .nav-link:hover {
+            color: #ffcc00; /* Amarillo institucional para hover */
+        }
+        .container-main {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .container-main h2 {
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .btn-create {
+            background-color: #49632E; /* Verde oscuro institucional */
+            color: #ffffff;
+        }
+        .btn-create:hover {
+            background-color: #374d23; /* Verde más oscuro */
+        }
+        .btn-edit {
+            background-color: #49632E; /* Verde oscuro institucional */
+            color: #ffffff;
+        }
+        .btn-edit:hover {
+            background-color: #374d23; /* Verde más oscuro */
+        }
+        .btn-delete {
+            background-color: #dc3545; /* Rojo institucional */
+            color: #ffffff;
+        }
+        .btn-delete:hover {
+            background-color: #c82333; /* Rojo oscuro */
+        }
+        .footer {
+            background-color: #1A1413; /* Rojo oscuro institucional */
+            color: #ffffff;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+        }
+        .btn-create img, .btn-edit img, .btn-delete img {
+            height: 20px;
+            width: 20px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/homeAdmin.html">
+                <img src="../img/escudo.png" alt="Logo UTS">
+                Proyectos UTS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Regresar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container container-main">
+        <h2>Lista de Estudiantes</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Cédula</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Contraseña</th>
+                    <th>Teléfono</th>
+                    <th>Carrera Educativa</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="estudiante : ${listarEst}">
+                    <td th:text="${estudiante.cedula}"></td>
+                    <td th:text="${estudiante.nombre}"></td>
+                    <td th:text="${estudiante.apellido}"></td>
+                    <td th:text="${estudiante.contra}"></td>
+                    <td th:text="${estudiante.telefono}"></td>
+                    <td th:text="${estudiante.carreraEstudiando}"></td>
+                    <td>
+                        <form th:action="@{'/editarEst/'+${estudiante.cedula}}" method="get">
+                            <button type="submit" class="btn btn-edit">
+                                <img src="../img/documento.png" alt="Editar"> Editar
+                            </button>
+                        </form>
+                        <form th:action="@{'/eliminarEst/'+${estudiante.cedula}}" method="get">
+                            <button type="submit" class="btn btn-delete">
+                                <img src="../img/boton_eliminar.png" alt="Eliminar"> Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="mt-3">
+            <a href="/crearEst" class="btn btn-create">
+                <img src="../img/boton_agregar.png" alt="Crear"> Crear Estudiante
+            </a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Unidades Tecnológicas de Santander. Todos los derechos reservados.</p>Gabriel Ortega
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
