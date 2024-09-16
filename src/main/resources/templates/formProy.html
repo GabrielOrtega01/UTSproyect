@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestor Proyectos - Formulario de Proyecto</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous"
+    />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #132F20; /* Verde profundo institucional */
+            color: #ffffff;
+            justify-content: center;
+            position: relative;
+        }
+
+        .navbar-brand {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+        }
+
+        .navbar-brand img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .navbar-brand span {
+            margin-left: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .content-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #132F20; /* Verde profundo institucional */
+            padding: 20px;
+            color: white;
+            position: fixed; /* Hace que la barra lateral sea fija */
+            top: 0; /* La barra lateral estará anclada al borde superior */
+            left: 0; /* La barra lateral estará anclada al borde izquierdo */
+            height: 100%; /* Ocupa el 100% de la altura de la pantalla */
+            overflow-y: auto; /* Permite hacer scroll dentro de la barra lateral si el contenido es muy largo */
+        }
+
+        .sidebar img {
+            width: 180px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar a {
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .sidebar a:hover {
+            background-color: #6D100A; /* Rojo institucional */
+        }
+
+        .sidebar a {
+    transition: background-color 0.3s ease;
+}
+
+        .form-container {
+            padding: 30px;
+            margin-left: 250px; /* Espacio para la barra lateral fija */
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-height: 100vh;
+            padding-bottom: 50px; 
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #132F20; /* Verde profundo institucional */
+            text-align: center;
+        }
+
+        .form-label {
+            font-size: 16px;
+            color: #132F20;
+        }
+
+        .form-control,
+        .form-select {
+            border: 1px solid #132F20;
+            color: #132F20;
+        }
+
+        .btn-primary {
+            background-color: #6D100A; /* Rojo institucional */
+            border-color: #6D100A;
+        }
+
+        .btn-primary:hover {
+            background-color: #C22D20;
+            border-color: #C22D20;
+        }
+
+        footer {
+            background-color: #132F20;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../img/logo1.png" alt="Logo UTS">
+                <span>PROYECTOS UTS</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#" style="color: #ffffff;">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color: #ffffff;">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="/" style="color: #ffffff;">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <img src="../img/escudo.png" alt="Escudo">
+Gestionar Proyectos
+        </div>
+
+        <!-- Formulario -->
+        <div class="form-container">
+            <form th:object="${proy}" th:action="@{/guardarProy}" method="post">
+                <h1>Formulario de Proyecto</h1>
+                <input type="hidden" class="form-control" th:field="*{id}">
+
+                <div class="mb-3">
+                    <label for="anteproyecto" class="form-label">Nombre AnteProyecto</label>
+                    <input type="text" class="form-control" id="anteproyecto" th:field="*{anteproyecto}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="estadoDirector" class="form-label">Estado Director</label>
+                    <input type="text" class="form-control" id="estadoDirector" th:field="*{estadoDirector}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="radicadoAnteproyecto" class="form-label">Radicado AnteProyecto</label>
+                    <input type="text" class="form-control" id="radicadoAnteproyecto" th:field="*{radicadoAnteproyecto}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="estadoEvaluador" class="form-label">Estado Evaluador</label>
+                    <input type="text" class="form-control" id="estadoEvaluador" th:field="*{estadoEvaluador}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="estadoFinal" class="form-label">Estado Final</label>
+                    <input type="text" class="form-control" id="estadoFinal" th:field="*{estadoFinal}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="radicadoComite" class="form-label">Radicado Comité</label>
+                    <input type="text" class="form-control" id="radicadoComite" th:field="*{radicadoComite}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="calificacion" class="form-label">Calificación</label>
+                    <input type="number" class="form-control" id="calificacion" th:field="*{calificacion}">
+                </div>
+
+                <div class="mb-4 form-floating">
+                    <select th:field="*{director}" class="form-select">
+                        <option th:value="${null}" selected>'Sin Asignar'</option>
+                        <th:block th:each="objeto: ${listaDir}">
+                            <option th:text="${objeto.nombre}" th:value="${objeto.cedula}"></option>
+                        </th:block>
+                    </select>
+                    <label for="director">Director:</label>
+                </div>
+
+                <div class="mb-4 form-floating">
+                    <select th:field="*{evaluador}" class="form-select">
+                        <option th:value="${null}" selected>'Sin Asignar'</option>
+                        <th:block th:each="objeto: ${listaEva}">
+                            <option th:text="${objeto.nombre}" th:value="${objeto.cedula}"></option>
+                        </th:block>
+                    </select>
+                    <label for="evaluador">Evaluador:</label>
+                </div>
+
+                <div class="mb-4 form-floating">
+                    <select th:field="*{coordinador}" class="form-select">
+                        <option th:value="${null}" selected>'Sin Asignar'</option>
+                        <th:block th:each="objeto: ${listaCoor}">
+                            <option th:text="${objeto.nombre}" th:value="${objeto.cedula}"></option>
+                        </th:block>
+                    </select>
+                    <label for="coordinador">Coordinador:</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar Proyecto</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Unidades Tecnológicas de Santander</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-2dFfA0Y2dXb7ZwZ5Qq02Tr2jP4dd5eqzjMBnP1gnD2V/2Qx7/gG4G2CTo6b8slzC"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
